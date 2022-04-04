@@ -1,0 +1,118 @@
+<!--main content start-->
+<section id="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <ol class="breadcrumb">
+                <li><i class="fa fa-home"></i><a routerLink="/home">Accueil</a></li>
+                <li><i class="icon_documents_alt"></i>Pages</li>
+                <li><i class="fa fa-user-md"></i>Profile</li>
+            </ol>
+        </div>
+    </div>
+    <div class="row">
+        <!-- profile-widget -->
+        <div class="col-lg-12">
+            <div class="profile-widget profile-widget-info">
+                <div class="panel-body">
+                    <div class="col-lg-6 col-sm-2">
+                        <form (ngSubmit)="processForm()">
+                            <div class="follow-ava col-lg-4">
+                                <img src="../../../assets/img/avatar.jpg" class="img-circle" width="40" routerLink="/profil" alt="" *ngIf="!img" />
+
+                                <img [src]="
+                    this.userService.baseUrl +
+                    '/utilisateurs/avatar/' +
+                    this.id +
+                    '?ts=' +
+                    getTS()
+                  " class="avatar" alt="" *ngIf="img" />
+
+                                <br />
+
+                                <input type="file" (change)="onSelectedFile($event)" class="select" accept="image/*" />&nbsp;&nbsp;
+                                <input type="submit" value="save" class="btn-photo" style="cursor: pointer" /> {{ progress }}
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-lg-4 col-sm-4 follow-info">
+                        <p>
+                            Je m'appele {{ listDataProfil.name }}, employé au Restaurant la Casa.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- page start-->
+    <div class="row">
+        <div class="col-lg-12">
+            <section class="panel">
+                <header class="panel-heading tab-bg-info">
+                    <ul class="nav nav-tabs">
+                        <li class="active">
+                            <a data-toggle="tab" href="#profile">
+                                <i class="icon-user"></i> Profile
+                            </a>
+                        </li>
+                        <li class="">
+                            <a data-toggle="tab" (click)="addEditUsername(listDataProfil)" style="cursor: pointer">
+                                <i class="icon-envelope"></i> Editer Nom Utilisateur
+                            </a>
+                        </li>
+                        <li class="">
+                            <a data-toggle="tab" (click)="addEditPassword(listDataProfil)" style="cursor: pointer">
+                                <i class="icon-envelope"></i> Editer Password
+                            </a>
+                        </li>
+                    </ul>
+                </header>
+                <div class="panel-body">
+                    <div class="tab-content">
+                        <!-- profile -->
+                        <div id="profile" class="tab-pane active">
+                            <section class="panel">
+                                <div class="bio-graph-heading"></div>
+                                <div class="panel-body bio-graph-info">
+                                    <h1>Biobliographie</h1>
+                                    <div class="row">
+                                        <div class="bio-row">
+                                            <p>
+                                                <span>Nom et Prenom </span> : {{ listDataProfil.name }}
+                                            </p>
+                                        </div>
+                                        <div class="bio-row">
+                                            <p>
+                                                <span>Nom utilisateur </span> : {{ listDataProfil.username }}
+                                            </p>
+                                        </div>
+                                        <div class="bio-row">
+                                            <p>
+                                                <span>Adresse Email</span> : {{ listDataProfil.email }}
+                                            </p>
+                                        </div>
+                                        <div class="bio-row">
+                                            <p><span>Activer </span> : {{ listDataProfil.active }}</p>
+                                        </div>
+                                        <div class="bio-row">
+                                            <p>
+                                                <span>Occupation </span>: {{ listDataProfil?.roles[0].name }}
+                                            </p>
+                                        </div>
+
+                                        <div class="bio-row">
+                                            <p><span>Identifiant </span>: {{ listDataProfil.id }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                            <section></section>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- page end-->
+</section>
+<!--main content end-->

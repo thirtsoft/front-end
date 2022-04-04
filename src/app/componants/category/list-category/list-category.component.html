@@ -1,0 +1,49 @@
+<div class="row">
+    <input type="text" class="form-control" placeholder="Search" [(ngModel)]="searchText" />
+
+    <button _ngcontent-roy-c3="" class="btn-meeting" (click)="onCreateCategorie()" type="submit" style="margin-left: 5%; width: 30%">
+    <em class="fa fa-plus"> </em> Ajouter categorie
+  </button>
+</div>
+<div class="table-responsive oneOrder">
+    <table class="table table-striped" aria-label="">
+        <thead class="thead-inverse">
+            <tr>
+                <th>#</th>
+                <th>code</th>
+                <th>Designation</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="
+                    let categoryDTO of categoryListDTO
+                      | filter: searchText
+                      | paginate: { itemsPerPage: 15, currentPage: p };
+                    let i = index
+                  ">
+                <td>{{ categoryDTO?.id }}</td>
+                <td>{{ categoryDTO?.logo }}</td>
+                <td>{{ categoryDTO?.name }}</td>
+
+                <td>
+                    <button class="btn btn-warning btn-lg" [routerLink]="['/categorie', categoryDTO.id]">
+            <i class="fa fa-edit" aria-hidden="true"></i></button
+          >&nbsp;
+
+          <button
+            class="btn btn-danger btn-lg"
+            (click)="deleteCategory(categoryDTO.id)"
+          >
+            <i class="fa fa-trash" aria-hidden="true"></i></button
+          >&nbsp;
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="pagination">
+       <pagination-controls
+                (pageChange)="p = $event"
+              ></pagination-controls> 
+  </div>
+</div>

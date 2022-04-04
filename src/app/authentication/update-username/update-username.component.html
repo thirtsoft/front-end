@@ -1,0 +1,25 @@
+<div class="row">
+    <div class="col-md-10 col-md-offset-2">
+        <h3>Modifier Votre Nom Utilisateur</h3>
+        <form #addUsernameForm="ngForm" name="form" (ngSubmit)="addUsernameForm.form.valid && onSubmit()">
+            <div class="form-group">
+                <label>Ancien Nom Utilisateur</label>
+                <input type="text" class="form-control" [(ngModel)]="formDataProfile.username" name="username" id="username" #username="ngModel" placeholder="Donner votre ancien nom d'utiisateur" required />
+            </div>
+
+            <div class="form-group">
+                <label>Nouveau Nom Utilisateur</label>
+                <input type="text" class="form-control" [(ngModel)]="formDataProfile.newUsername" name="newUsername" id="newUsername" #newUsername="ngModel" placeholder="Votre nouveau nom d'utiisateur" required />
+            </div>
+
+            <div class="form-group">
+                <button type="submit" class="btn btn-success">
+          <em class="fa fa-database"></em> Enregistrer</button
+        >&nbsp;
+        <button type="button" class="btn btn-danger ml-1">
+          <em class="fa fa-close"></em> Fermer
+        </button>
+            </div>
+        </form>
+    </div>
+</div>

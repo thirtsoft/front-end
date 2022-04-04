@@ -1,0 +1,78 @@
+<div class="row">
+    <div *ngFor="let temp of this.orders" class="col-md-4 myorder buyingorder">
+        <div class="card order-item">
+            <div class="totprice">{{temp.price * temp.quantity}}F</div>
+            <div class="totprice to2">{{temp.price}}F</div>
+            <img src="assets/img/{{temp.img}}.jpg" alt="Denim Jeans" style="width:100%">
+            <h1>{{temp.name}}</h1>
+            <p class="price">
+                <i (click)="addOrder(temp)" class="fas fa-plus"></i>
+                <span>{{temp.quantity}}</span>
+                <i (click)="removeOrder(temp)" class="fas fa-minus"></i></p>
+            <button (click)="remove(temp)" class="btn btn-primary mybu">Supprimer</button>
+        </div>
+    </div>
+
+</div>
+<div *ngIf="orders?.length == 0" class="alert alert-danger" role="alert">
+    Votre panier est vide
+</div>
+
+<div class="row" style="margin-bottom: 20px;">
+    <div class="col-sm-4 check-out" style="margin: 0px; margin-top: 15px; margin-left: 20px;">
+
+
+        <div class="form-group">
+            <label for="">Moyen Paiement</label>
+            <select type="text" name="typeReglement" formControlName="typeReglement" id="typeReglement" class="form-control">
+                    <option value="CASH">CASH</option>
+                    <option value="VIREMENT">VIREMENT</option>
+                    <div
+            *ngIf="
+             f['typeReglement'].invalid &&
+             (f['typeReglement'].dirty || f['typeReglement'].touched)
+              "
+              class="alert alert-danger"
+          >
+            <span *ngIf="f['typeReglement'].errors.required"
+              >Le type de réglement est obligatoire.</span
+            >
+          </div>
+                </select>
+        </div>
+
+        <div class="form-group">
+            <label for="">Montant Reçu</label>
+            <input type="number" formControlName="montantReglement" class="form-control" id="montantReglement" placeholder="350000000" />
+            <div *ngIf="
+              f['montantReglement'].invalid &&
+              (f['montantReglement'].dirty || f['montantReglement'].touched)
+            " class="alert alert-danger">
+                <span *ngIf="f['montantReglement'].errors.required">Le montant de réglement est obligatoire.</span
+            >
+            <span *ngIf="f['montantReglement'].errors?.pattern"
+              >SVP, Le montant doit contenir que des chiffres..</span
+            >
+          </div>
+        </div>
+
+    </div>
+
+    <div class="col-sm-6 check-out" style="margin: 0px; margin-top: 15px; margin-left: 20px;">
+        <div class="size">Total Articles : {{totalOrder}}</div>
+        <div class="totalprice">
+            Prix Total : 
+            <input
+                  type="number"
+                  value="{{ this.totalPrice }} F"
+                  id="totalPrice"
+                  formControlName="totalPrice"
+                  class="form-control"
+                  readonly
+                />
+            </div>
+        <!-- <button (click)="checkOut()" *ngIf="orders.length !== 0" type="button" class="btn btn-primary done">Confirmer Commande</button> -->
+        <button (click)="onSubmit()" *ngIf="orders.length !== 0" type="button" class="btn btn-primary done">Confirmer Commande</button>
+    </div>
+
+</div>

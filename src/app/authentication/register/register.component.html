@@ -1,0 +1,89 @@
+<form [formGroup]="registrationForm" (ngSubmit)="onSubmit()" class="login-form">
+    <div class="row" style="align-items: center;">
+        <div class="login-wrap col-md-6">
+            <p class="login-img"><i class="icon_lock_alt"></i></p>
+
+            <div class="form-group">
+                <span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i
+        ></span>
+                <input type="text" class="form-control" id="name" formControlName="name" placeholder="Nom et Prénom" required />
+                <div class="alert alert-danger" *ngIf="
+            registrationForm.get('name').invalid &&
+            registrationForm.get('name').touched
+          ">
+                    <div *ngIf="registrationForm.get('name').errors.required">
+                        Nom complet est obligatoire
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <span class="input-group-addon"><i class="icon_profile"></i></span>
+                <input type="text" id="username" formControlName="username" class="form-control" placeholder="Username" autofocus required />
+                <div class="alert alert-danger" *ngIf="
+            registrationForm.get('username').invalid &&
+            registrationForm.get('username').touched
+          ">
+                    <div *ngIf="registrationForm.get('username').errors.required">
+                        Nom Utilisateur est obligatoire
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <span class="input-group-addon"><i class="fa fa-at"></i></span>
+                <input type="text" class="form-control" id="email" formControlName="email" required email />
+                <div class="alert alert-danger" *ngIf="
+            registrationForm.get('email').invalid &&
+            registrationForm.get('email').touched
+          ">
+                    <div *ngIf="registrationForm.get('email').errors.required">
+                        Email doit etre une addresse email valide
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <span class="input-group-addon"><i class="icon_key_alt"></i></span>
+                <input type="password" id="password" formControlName="password" required minlength="6" class="form-control" placeholder="Password" />
+                <div class="alert alert-danger" *ngIf="
+            registrationForm.get('password').invalid &&
+            registrationForm.get('password').touched
+          ">
+                    <div *ngIf="registrationForm.get('password').errors.required">
+                        Password est obligatoire
+                    </div>
+                    <div *ngIf="registrationForm.get('password').errors.minlength">
+                        Password doit avoir plus de 6 caractère
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label style="color: white">Poste Utilisateur</label>
+                <div class="form-check" style="color: white" *ngFor="
+            let role of registrationForm.get('roleSelection')['controls'];
+            let i = index
+            
+          ">
+                    <label class="form-check-label">
+            <input style="color: white"
+              type="checkbox"
+              class="form-check-input"
+              [formControl]="role"
+            />
+            {{ roles[i].name }}
+          </label>
+                </div>
+            </div>
+
+            <button class="btn btn-primary btn-lg btn-block" type="submit">
+        Créer compter
+      </button>
+            <div *ngIf="submitted && isSignUpFailed" class="alert alert-warning">
+                Echec création compte!<br />{{ errorMessage }}
+            </div>
+            <button class="btn btn-info btn-lg btn-block" routerLink="/login">
+        login
+      </button>
+        </div>
+    </div>
+</form>

@@ -1,0 +1,54 @@
+<form (ngSubmit)="done()" class="row" [formGroup]="checkoutParentGroup">
+    <div class="row" style="margin-bottom: 20px">
+        <div formGroupName="data" class="col-sm-4 check-out" style="margin: 0px; margin-top: 15px; margin-left: 20px">
+            <div class="form-group">
+                <label for="">Moyen Paiement</label>
+                <select formControlName="typeReglement" type="text" name="" id="" class="form-control">
+          <option value="ESPECES">ESPECES</option>
+          <option value="TRANSFERT">TRANSFERT</option>
+          <div
+            *ngIf="
+              typeReglement.invalid &&
+              (typeReglement.dirty || typeReglement.touched)
+            "
+          >
+            <div
+              *ngIf="
+                typeReglement.errors.required || typeReglement.errors.noSpace
+              "
+              class="alert alert-danger"
+              role="alert"
+            >
+              Le moyen de réglement est obligatoire
+            </div>
+          </div>
+        </select>
+            </div>
+
+            <div class="form-group">
+                <label for="">Montant Reçu</label>
+                <input formControlName="montantReglement" type="number" class="form-control" placeholder="10 0000" />
+            </div>
+            <div *ngIf="
+          montantReglement.invalid &&
+          (montantReglement.dirty || montantReglement.touched)
+        ">
+                <div *ngIf="montantReglement.errors.required" class="alert alert-danger" role="alert">
+                    Le montant réglement est obligatoire
+                </div>
+
+                <div *ngIf="montantReglement.errors.pattern" class="alert alert-danger" role="alert">
+                    Le montant réglement est invalid, veuillez donner des nombres
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-6 check-out" style="margin: 0px; margin-top: 15px; margin-left: 20px">
+            <div class="size">Total Articles : {{ totalSize }}</div>
+            <div class="totalprice">Prix Total : {{ totalPrice }}</div>
+            <button type="submit" class="btn btn-primary btn-block done">
+        Valider votre commande
+      </button>
+        </div>
+    </div>
+</form>

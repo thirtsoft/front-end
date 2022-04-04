@@ -1,0 +1,117 @@
+<h2 class="text-white">
+    Nouveau Article</h2>
+<h2 *ngIf="paramId" class="text-white">Modifier Article</h2>
+<form #addArticleForm="ngForm" [formGroup]="addArticleForm" name="form" class="oneOrder" enctype="multipart/form-data">
+    <div class="row">
+        <div class="col-md-6">
+
+            <div class="form-group">
+                <label>Designation</label>
+                <input type="text" class="form-control" [(ngModel)]="addEditArticleDTO.name" name="name" id="name" #name="ngModel" required />
+                <span class="text-danger" *ngIf="
+                    (name.touched || addArticleForm.submitted) &&
+                    name.errors?.required
+                  ">
+                  Désignation est obligatoire
+                </span>
+            </div>
+
+
+
+            <div class="form-group">
+                <label>Prix </label>
+                <input type="number" class="form-control" [(ngModel)]="addEditArticleDTO.price" name="price" id="price" #price="ngModel" required />
+                <span class="text-danger" *ngIf="
+                    (price.touched || addArticleForm.submitted) &&
+                    price.errors?.required
+                  ">
+                  Le Prix est obligatoire
+                </span>
+            </div>
+
+
+        </div>
+
+        <div class="col-md-6">
+            <div class="form-group">
+                <label>Categorie</label>
+                <div class="form-group">
+
+                    <select name="category" [(ngModel)]="addEditArticleDTO.category" class="form-control">
+                <option
+                  *ngFor="let cat of categoryListDTO"
+                  [ngValue]="
+                  cat.id == addEditArticleDTO.category?.id
+                      ? addEditArticleDTO.category
+                      : cat
+                  "
+                >
+                  {{ cat.name }}
+                </option>
+              </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Quantity </label>
+                <input type="number" class="form-control" [(ngModel)]="addEditArticleDTO.quantity" name="quantity" id="quantity" #quantity="ngModel" required />
+                <span class="text-danger" *ngIf="
+                    (quantity.touched || addArticleForm.submitted) &&
+                    quantity.errors?.required
+                  ">
+                  Quantity est obligatoire
+                </span>
+            </div>
+
+            <div class="form-group">
+                <label>Photo</label>
+                <img height="40" width="40" class="img-circle" alt="" src="{{
+                  this.catService.baseUrl +
+                    'products/photoArticleInContext/' +
+                    addEditArticleDTO.id
+                }}" *ngIf="paramId" />
+                <span *ngIf="!editPhoto">
+                  <input type="file" (change)="onSelectedFile($event)" />
+                  <button
+                    class="btn btn-success btn-sm"
+                    (click)="processForm()"
+                  >
+                    <span class="glyphicon glyphicon-upload"></span> Save Change
+                </button>
+                {{ progress }}
+                </span>
+            </div>
+        </div>
+
+        <div class="col-sm-12">
+            <div class="form-group">
+                <label>Description</label>
+                <textarea type="text " class="form-control" name="description " id="description " [(ngModel)]="addEditArticleDTO.description" cols="30 " rows="10 " #description="ngModel" required>
+                </textarea>
+                <span class="text-danger" *ngIf="
+                    (description.touched || addArticleForm.submitted) &&
+                    description.errors?.required
+                  ">
+                  Description est obligatoire
+                </span>
+            </div>
+        </div>
+
+
+    </div>
+
+    <div class="form-group">
+        <button *ngIf="!paramId" type="submit" class="btn btn-lg btn-success" (click)="onSaveArticle()">
+              <i class="fa fa-database"></i> Enregistrer</button
+            >&nbsp;
+            <button
+              *ngIf="paramId"
+              class="btn btn-lg btn-warning"
+              (click)="update()"
+            >
+              <i class="fa fa-database"></i> Modifier
+            </button>
+        <button (click)="goBack()" type="button" class="btn btn-lg btn-danger ml-1">
+              <i class="fa fa-angle-right"></i> Retour
+            </button>
+    </div>
+</form>

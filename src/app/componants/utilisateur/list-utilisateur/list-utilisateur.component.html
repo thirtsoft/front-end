@@ -1,0 +1,69 @@
+<div class="row">
+    <input type="text" class="form-control" placeholder="Search" [(ngModel)]="searchText" />
+
+    <button _ngcontent-roy-c3="" (click)="onCreateAccount()" class="btn-meeting" type="submit" style="margin-left: 5%; width: 30%">
+    <em class="fa fa-plus"> </em> Ajouter un Employé
+  </button>
+</div>
+
+<div class="table-responsive oneOrder">
+    <table class="table table-striped" aria-label="">
+        <thead class="thead-inverse">
+            <tr>
+                <th>Photo</th>
+                <th>Nom</th>
+                <th>Addresse</th>
+                <th>Mobile</th>
+                <th>Email</th>
+                <th>Nom utilisateur</th>
+                <th>Poste</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="
+            let userDTO of utilisateurDTOList
+                      | filter: searchText
+                      | paginate: { itemsPerPage: 15, currentPage: p };
+                    let i = index
+         
+        ">
+
+                <td>
+                    <img src="assets/img/profile-img.jpg" alt="" class="img-fluid rounded-circle" />
+                    <!--  <img height="50" width="50" class="img-circle" alt="" src="{{
+              this.crudApi.baseUrl +
+                'products/photoProductInContext/' +
+                userDTO.id
+            }}" /> -->
+                </td>
+                <td>{{ userDTO?.name }}</td>
+                <td>{{ userDTO?.address }}</td>
+                <td>{{ userDTO?.mobile }}</td>
+                <td>{{ userDTO?.email }}</td>
+                <td>{{ userDTO?.username }}</td>
+                <td>{{ userDTO?.roles[0].name }}</td>
+
+
+                <td class="text-right">
+
+
+                    <button class="btn btn-primary btn-sm" [routerLink]="['/produit', userDTO.id]">
+            <i class="fa fa-edit" aria-hidden="true"></i></button
+          >&nbsp;
+
+          <button
+            class="btn btn-danger btn-sm"
+            (click)="confirmDialog(userDTO.id)"
+          >
+            <i class="fa fa-trash" aria-hidden="true"></i></button
+          >&nbsp;
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="pagination">
+   <pagination-controls (pageChange)="p = $event"></pagination-controls> 
+  </div>
+</div>

@@ -1,0 +1,14 @@
+<!-- <div *ngIf="isAuthenticatedUser()" class="d-flex myform">
+    <input #key class="mygro form-control me-2" type="search" placeholder="Search" aria-label="Search">
+    <button (click)="doSearch(key.value)" class="mygro btn btn-outline-success">Search</button>
+</div> -->
+
+<div *ngIf="this.isLoggedIn" class="d-flex myform">
+    <input class="mygro form-control me-4" type="search" [value]="'VenteJour : ' +[this.sumVenteInMonth] +'f'" aria-label="Search" readonly>
+</div>
+
+<!-- <button routerLink="/login" *ngIf="!isAuthenticatedUser()" class="log btn btn-outline-primary">Login</button>
+<button (click)="logOut()" *ngIf="isAuthenticatedUser()" class="log btn btn-outline-danger">Logout</button>
+ -->
+<button *ngIf="!this.isLoggedIn" routerLink="/login" class="log btn btn-outline-primary">Login</button>
+<button (click)="logOut()" *ngIf="this.isLoggedIn" class="log btn btn-outline-danger">LogOut</button>

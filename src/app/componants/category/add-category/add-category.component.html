@@ -1,0 +1,40 @@
+<h2 *ngIf="!paramId" class="text-white">Ajouter Categorie</h2>
+<h2 *ngIf="paramId" class="text-white">Modifier Categorie</h2>
+<form #addArticleForm="ngForm" name="form" class="oneOrder">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="text-white" style="font-size: 16px;">Code</label>
+                <input type="text" class="form-control" [(ngModel)]="addEditCategoryData.logo" name="logo" id="logo" #logo="ngModel" required />
+                <span class="text-danger" *ngIf="
+            (logo.touched || addArticleForm.submitted) && logo.errors?.required
+          ">
+          Code est obligatoire
+        </span>
+            </div>
+
+            <div class="form-group">
+                <label class="text-white" style="font-size: 16px;">Designation</label>
+                <input type="text" class="form-control" [(ngModel)]="addEditCategoryData.name" name="name" id="name" #name="ngModel" required />
+                <span class="text-danger" *ngIf="
+            (name.touched || addArticleForm.submitted) &&
+            name.errors?.required
+          ">
+          Désignation est obligatoire
+        </span>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <button *ngIf="!paramId" type="submit" class="btn btn-lg btn-success" (click)="saveCategorie()">
+      <i class="fa fa-database"></i> Enregistrer</button
+    >&nbsp;
+    <button *ngIf="paramId" class="btn btn-lg btn-warning" (click)="updateCategorie()">
+      <i class="fa fa-database"></i> Modifier
+    </button>
+        <button (click)="goBack()" type="button" class="btn btn-lg btn-danger ml-1">
+      <i class="fa fa-angle-right"></i> Retour
+    </button>
+    </div>
+</form>

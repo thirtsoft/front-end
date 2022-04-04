@@ -1,0 +1,59 @@
+<h2 class="text-white">FACTURES D'UNE VENTE</h2>
+
+<div>
+    <a (click)="OpenPdf()" style="cursor: pointer" class="btn btn-warning btn-lg">
+        <i class="fa fa-folder-open" aria-hidden="true">Ouvrir</i></a>&nbsp;
+    <a (click)="PrintPdf()" style="cursor: pointer" class="btn btn-success btn-lg">
+        <i class="fa fa-print" aria-hidden="true">Imprimer</i></a>&nbsp;
+    <a type="button" (click)="DownloadPdf()" style="cursor: pointer" class="btn btn-danger btn-lg">
+        <i class="fa fa-file-pdf-o" aria-hidden="true">Télécharger</i></a>&nbsp;
+    <a type="button" (click)="onGoBack()" class="btn btn-warning btn-lg" style="cursor: pointer">
+        <span class="fa fa-arrow-left">Retour</span>&nbsp;
+    </a>
+</div>
+<div class="panel-body oneOrder" style="margin-top: 10px">
+    <div class="row">
+        <div class="form-group col-sm-2">
+            <label>Vendeur : </label>
+            <input type="text" class="form-control" name="id" [value]="this.username" readonly />
+        </div>
+
+        <div class="form-group col-sm-3">
+            <label>Commande Numéro : </label>
+            <input type="text" class="form-control" name="numeroCommande" [value]="this.numeroCommande" id="numeroCommande" readonly />
+        </div>
+
+
+        <div class="form-group col-sm-2">
+            <label>P.Total : </label>
+            <input type="text" class="form-control" name="" [value]="this.totalCommande" id="total" readonly />
+        </div>
+
+        <div class="form-group col-sm-2">
+            <label>Date : </label>
+            <input type="datetime" name="dateCommande" [value]="this.dateCommande | date: 'dd/MM/yyyy'" class="form-control" readonly />
+        </div>
+    </div>
+    <div></div>
+    <div></div>
+    <!-- Debut Ligne de commandes -->
+    <table class="table table-striped table-bordered table-sm row-border hover" datatable aria-label="">
+        <thead>
+            <tr>
+                <th>Désignation</th>
+                <th>Quantite</th>
+                <th>P.Unitaire</th>
+                <th>P.Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of this.itService.listData">
+                <td>{{ item.productName }}</td>
+                <td>{{ item.quantity }}</td>
+                <td>{{ item.price }}</td>
+                <td>{{ item.price * item.quantity }}</td>
+            </tr>
+        </tbody>
+    </table>
+    <!-- Fin  Ligne de commandes -->
+</div>
